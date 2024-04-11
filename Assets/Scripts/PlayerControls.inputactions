@@ -143,6 +143,34 @@
                     "isPartOfComposite": false
                 }
             ]
+        },
+        {
+            "name": "Player Actions",
+            "id": "cde6bb8c-edab-4ce0-a6e5-49fe3a5388ae",
+            "actions": [
+                {
+                    "name": "Aim",
+                    "type": "Button",
+                    "id": "a311f412-8024-4097-8e67-1d047a21aa70",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "800897fb-928f-479c-bc97-3bcae76bc3af",
+                    "path": "<Mouse>/rightButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Aim",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
         }
     ],
     "controlSchemes": []

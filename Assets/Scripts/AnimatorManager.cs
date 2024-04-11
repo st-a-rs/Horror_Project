@@ -1,10 +1,22 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Animations.Rigging;
 
 public class AnimatorManager : MonoBehaviour
 {
     public Animator animator;
+
+    [Header("Hand IK Constraints")]
+    public TwoBoneIKConstraint rightHandIK; // Enable character to hold weapon properly
+    public TwoBoneIKConstraint leftHandIK;
+
+    [Header("Aiming Constraints")]
+    public MultiAimConstraint spine01; //Constraints turn the characer toward Aiming Target
+    public MultiAimConstraint spine02;
+    public MultiAimConstraint head;
+
+    RigBuilder rigBuilder;
     PlayerManager playerManager;
     PlayerLocomotionManager playerLocomotionManager;
 
@@ -15,6 +27,7 @@ public class AnimatorManager : MonoBehaviour
     private void Awake()
     {
         animator = GetComponent<Animator>();
+        rigBuilder = GetComponent<RigBuilder>();
         playerManager = GetComponent<PlayerManager>();
         playerLocomotionManager = GetComponent<PlayerLocomotionManager>();
     }
@@ -65,6 +78,29 @@ public class AnimatorManager : MonoBehaviour
         animator.SetFloat("Vertical", snappedVertical, 0.1f, Time.deltaTime);
     }
 
+    public void AssignHandIK(RightHandIKTarget rightTarget, LeftHandIKTarget leftTarget)
+    {
+        rightHandIK.data.target = rightTarget.transform;
+        leftHandIK.data.target = leftTarget.transform;
+        rigBuilder.Build();
+    }
+    //While aiming character will turn toward center of screen
+    
+    public void UpdateAimConstraints()
+    {
+        if (playerManager.isAiming)
+        {
+            spine01.weight = 0.3f;
+            spine02.weight = 0.3f;
+            head.weight = 0.7f;
+        }
+        else
+        {
+            spine01.weight = 0f;
+            spine02.weight = 0f;
+            head.weight = 0f;
+        }
+    }
     private void OnAnimatorMove()
     {
         if (playerManager.disableRootMotion)
