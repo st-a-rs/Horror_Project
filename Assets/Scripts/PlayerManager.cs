@@ -8,6 +8,7 @@ public class PlayerManager : MonoBehaviour
     InputManager inputManager;
     Animator animator;
     PlayerLocomotionManager playerLocomotionManager;
+    PlayerEquipmentManager playerEquipmentManager;
 
     [Header("Player Actions")]
     public bool disableRootMotion;
@@ -21,6 +22,7 @@ public class PlayerManager : MonoBehaviour
         inputManager = GetComponent<InputManager>();
         animator = GetComponent<Animator>();
         playerLocomotionManager = GetComponent<PlayerLocomotionManager>();
+        playerEquipmentManager = GetComponent<PlayerEquipmentManager>();
     }
 
     private void Update()
@@ -40,5 +42,11 @@ public class PlayerManager : MonoBehaviour
     private void LateUpdate()
     {
         playerCamera.HandleAllCameraMovement();
+    }
+
+    public void UseCurrentWeapon()
+    {
+        //use knives in future
+        playerEquipmentManager.weaponAnimator.ShootWeapon(playerCamera);
     }
 }

@@ -10,6 +10,7 @@ public class PlayerEquipmentManager : MonoBehaviour
 
     [Header("Current Equipment")]
     public WeaponItem weapon;
+    public WeaponAnimatorManager weaponAnimator;
     RightHandIKTarget rightHandIK;
     LeftHandIKTarget leftHandIK;
     //public SubWeaponItem subWeapon; //knife, stun grenade, etc
@@ -35,6 +36,7 @@ public class PlayerEquipmentManager : MonoBehaviour
     {
         weaponLoaderSlot.LoadWeaponModel(weapon);
         animatorManager.animator.runtimeAnimatorController = weapon.weaponAnimator;
+        weaponAnimator = weaponLoaderSlot.currentWeaponModel.GetComponentInChildren<WeaponAnimatorManager>();
         rightHandIK = weaponLoaderSlot.currentWeaponModel.GetComponentInChildren<RightHandIKTarget>();
         leftHandIK = weaponLoaderSlot.currentWeaponModel.GetComponentInChildren<LeftHandIKTarget>();
         animatorManager.AssignHandIK(rightHandIK, leftHandIK);
